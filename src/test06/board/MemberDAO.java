@@ -85,7 +85,7 @@ public class MemberDAO implements InterMemberDAO {
 			String sql = // "select userseq, userid, passwd, name, mobile, point\n"+
 					"select name \n" + "        , to_char(registerday, 'yyyy-mm-dd') as registerday, status\n"
 							+ "from jdbc_member\n" + "where userid = ? and passwd = ?";
-
+ 
 			pstmt = conn.prepareStatement(sql);
 			// 플레이스 홀더(?) 에 올바른 값 순서대로 대입
 			pstmt.setString(1, paraMap.get("userid"));
