@@ -78,12 +78,12 @@ public class TotalController {
 
 		// MemberCtrl 클래스의 memberRegister()는 사용자로부터 입력받은 값을 MemberDTO 객체에 넣어주는 역할
 		// MemberDAO 클래스의 memberRegister()는 Ctrl에서 받은 MemberDTO 객체를 DB에 insert 해주는 역할
-		int n = mdao.memberRegister(member);
+		int n = mdao.memberRegister(member, sc);
 
 		if (n == 1) {
 			System.out.println("\n>>> 회원가입을 축하드립니다 <<<");
 		} else {
-			System.out.println("\n>>> 회원가입 실패!! <<<");
+			System.out.println("\n>>> 회원가입 취소!! <<<");
 		}
 
 		// 데이터베이스와 접속할 수 있는 객체 생성 => DAO(Database Access Object)

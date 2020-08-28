@@ -26,7 +26,7 @@ public class MemberDAO implements InterMemberDAO {
 
 	// *** DB에 회원가입 메서드 *** //
 	@Override
-	public int memberRegister(MemberDTO member) {
+	public int memberRegister(MemberDTO member, Scanner sc) {
 
 		int result = 0;
 		try {
@@ -43,6 +43,24 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt.setString(4, member.getMobile());
 
 			result = pstmt.executeUpdate();
+			
+			String yn = null;
+			if(result == 1) {
+				do {
+					System.out.print(">> 회원가입을 정말로 하시겠습니까?[y/n]");
+					yn = sc.nextLine();
+					
+					if("y".equalsIgnoreCase(yn)) {
+						conn.commit();	// 커밋
+					}else if("n".equalsIgnoreCase(yn)) {
+						conn.rollback();	// 롤백
+						result = 0;
+					}else {
+						System.out.println(">>> Y 또는 N 만 입력하세요!! \n");
+					}
+					
+				}while(!("y".equalsIgnoreCase(yn) || "n".equalsIgnoreCase(yn)));
+			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // SQLException 밑에 가있으면 안됨
 			System.out.println("에러메시지: " + e.getMessage());

@@ -1,9 +1,9 @@
-show user
+show user;
 -- USER이(가) "MYORAUSER"입니다.
 
         ------ ***  회원 테이블 생성하기  *** ------
 drop table jdbc_member purge; 
-        
+
 create table jdbc_member
 (userseq       number        not null    -- 회원번호, primary key
 ,userid        varchar2(30)  not null    -- 회원아이디, unique key
@@ -34,9 +34,12 @@ select *
 from jdbc_member
 order by userseq desc;
 
+
 --------------------------------------------------------------------------------------------------------------------
 
         ------ ///  게시판 테이블 생성하기  /// ------
+drop table jdbc_board purge;        
+        
 create table jdbc_board
 (boardno       number        not null          -- 글번호
 ,fk_userid     varchar2(30)  not null          -- 작성자아이디
@@ -49,6 +52,9 @@ create table jdbc_board
 ,constraint FK_jdbc_board foreign key(fk_userid) references jdbc_member(userid) 
 );
 
+
+drop sequence board_seq;
+
 create sequence board_seq
 start with 1
 increment by 1
@@ -59,6 +65,8 @@ nocache;
 
 
         ------ ///  댓글 테이블 생성하기  /// ------
+drop table jdbc_comment purge;
+        
 create table jdbc_comment 
 (commentno   number        not null    -- 댓글번호 
 ,fk_boardno  number        not null    -- 원글의 글번호 
@@ -72,6 +80,7 @@ create table jdbc_comment
              references jdbc_member(userid) 
 );
 
+drop sequence seq_comment;
 
 create sequence seq_comment
 start with 1
